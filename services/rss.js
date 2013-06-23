@@ -8,6 +8,15 @@ var getRssText = function(item, key) {
 			item.getElementsByTagName(key).item(0).text;
 }
 
+var getRssTextMobile = function(item, key) {
+	return item.getElementsByTagName(key).item(0).text.replace("http://www.","http://m.");
+	//return url.replace("http://","m.");
+	
+	//return osname === 'mobileweb' ?
+	//		item.getElementsByTagName(key).item(0).textContent : //childNodes[0].nodeValue :
+	//		item.getElementsByTagName(key).item(0).text.replace("http://","http://m.");
+}
+
 var parseDate = function(dateString) {
 	var dateParts = dateString.split(' ');
 	var timeParts = dateParts[4].split(':');
@@ -49,7 +58,7 @@ exports.loadRssFeed = function(o, tries) {
 
 			data.push({
 				title: getRssText(item, 'title'),
-				link: getRssText(item, 'link'),
+				link: getRssTextMobile(item, 'link'),
 				pubDate: parseDate(getRssText(item, 'pubDate')),
 				image: image
 			});
